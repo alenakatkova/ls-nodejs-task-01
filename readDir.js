@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const copyFile = require('./copyFile');
 
 /**
  * Функция просматривает все файлы и папки в базовой папке и копирует картинки в новую папку
@@ -37,16 +38,19 @@ const readDir = (base, destination) => {
 
       // Копируем картинку из базовой папки в папку каталога
       const imgNewPath = path.join(catalogDir, item);
-      fs.readFile(localBase, (err, data) => {
-        if (err) throw err;
-        fs.writeFile(imgNewPath, data, err => {
-          if (err) {
-            console.log(err);
-          }
-        });
-      });
+      copyFile(localBase, imgNewPath);
+      // fs.readFile(localBase, (err, data) => {
+      //   if (err) {
+      //     console.log('Ошибка чтения файла');
+      //   }
+      //   fs.writeFile(imgNewPath, data, err => {
+      //     if (err) {
+      //       console.log('Ошибка копирования файла');
+      //     }
+      //   });
+      // });
 
-      console.log(`I am copying file "${item}" into directory "${catalogDirName}"`);
+      console.log(`Файл "${item}" скопирован в директорию "${catalogDirName}"`);
     }
   });
 };
