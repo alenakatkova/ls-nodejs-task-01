@@ -29,7 +29,7 @@ const readDir = (base, destination) => {
       readDir(localBase, destination);
     } else {
       // Определяем папку каталога, в которой будет лежать картинка. Создаем эту папку, если она не была создана ранее
-      let catalogDirName = item.charAt(0);
+      let catalogDirName = item.charAt(0).toLowerCase();
       let catalogDir = path.join(destDir, catalogDirName);
       createDir(catalogDir);
 
@@ -37,7 +37,7 @@ const readDir = (base, destination) => {
       const imgNewPath = path.join(catalogDir, item);
       copyFile(localBase, imgNewPath);
 
-      console.log(`Файл "${item}" скопирован в директорию "${catalogDirName}"`);
+      console.log(`File "${item}" copied to dir "${catalogDirName}"`);
     }
   });
 };

@@ -8,6 +8,7 @@ const fs = require('fs');
 const createDir = (dirPath) => {
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath);
+    console.log(`Directory ${dirPath} created`);
   }
 };
 
