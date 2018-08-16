@@ -1,17 +1,31 @@
 {
-  "name": "home-task-01",
+  "name": "task-01",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "directories": {
     "test": "test"
   },
+  "dependencies": {
+    "eslint": "^5.3.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lalalakolpachok/ls-nodejs-task-01.git"
+  },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "eslint-config-standard": "^11.0.0"
-  }
+  "bugs": {
+    "url": "https://github.com/lalalakolpachok/ls-nodejs-task-01/issues"
+  },
+  "homepage": "https://github.com/lalalakolpachok/ls-nodejs-task-01#readme"
 }
