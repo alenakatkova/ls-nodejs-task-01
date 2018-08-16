@@ -11,6 +11,7 @@ const oldDirAction = userArgv[2];
 /**
  * Функция проверяет корректность введенных пользователем аргументов и запускает копирование файла
  */
+
 const init = () => {
   if (userArgv.length < 2) {
     console.log('Please enter arguments: "base dir", "destination dir" and "delete" if you want ' +
