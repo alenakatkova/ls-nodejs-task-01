@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const copyFile = require('./copyFile');
+const createDir = require('./createDir');
 
 /**
  * Функция просматривает все файлы и папки в базовой папке и копирует картинки в новую папку
@@ -17,9 +18,7 @@ const readDir = (base, destination) => {
   const files = fs.readdirSync(baseDir);
 
   // Создаем конечную папку, если она не была создана ранее
-  if (!fs.existsSync(destDir)) {
-    fs.mkdirSync(destDir);
-  }
+  createDir(destDir);
 
   // Работаем поочередно с каждым(ой) файлом/папкой из базовой папки
   files.forEach(item => {
@@ -32,23 +31,11 @@ const readDir = (base, destination) => {
       // Определяем папку каталога, в которой будет лежать картинка. Создаем эту папку, если она не была создана ранее
       let catalogDirName = item.charAt(0);
       let catalogDir = path.join(destDir, catalogDirName);
-      if (!fs.existsSync(catalogDir)) {
-        fs.mkdirSync(catalogDir);
-      }
+      createDir(catalogDir);
 
       // Копируем картинку из базовой папки в папку каталога
       const imgNewPath = path.join(catalogDir, item);
       copyFile(localBase, imgNewPath);
-      // fs.readFile(localBase, (err, data) => {
-      //   if (err) {
-      //     console.log('Ошибка чтения файла');
-      //   }
-      //   fs.writeFile(imgNewPath, data, err => {
-      //     if (err) {
-      //       console.log('Ошибка копирования файла');
-      //     }
-      //   });
-      // });
 
       console.log(`Файл "${item}" скопирован в директорию "${catalogDirName}"`);
     }
