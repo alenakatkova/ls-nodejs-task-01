@@ -1,12 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 const readDir = require('./readDir');
+const countFiles = require('./countFiles');
+const deleteDir = require('./deleteDir');
+
+let currentState = require('./state');
+let amountOfFiles;
 
 // Введенные пользователем аргументы
 const userArgv = process.argv.slice(2);
 const base = userArgv[0];
 const destination = userArgv[1];
-const oldDirAction = userArgv[2];
+const oldDirDelete = userArgv[2];
 
 /**
  * Функция проверяет корректность введенных пользователем аргументов и запускает копирование файла
@@ -20,10 +25,27 @@ const init = () => {
     console.log('Base directory doesn\'t exist');
   } else if (base === destination) {
     console.log('Base and destination directories must be different');
-  } else if (oldDirAction && oldDirAction !== 'delete') {
+  } else if (oldDirDelete && oldDirDelete !== 'delete') {
     console.log('3rd argument must be "delete" or empty');
   } else {
+    amountOfFiles = countFiles(path.join(__dirname, base));
     readDir(base, destination);
+  }
+
+  if (currentState.filesCopied === amountOfFiles) {
+    console.log('Copy done');
+    switch (oldDirDelete) {
+      case 'delete':
+        deleteDir(base);
+        console.log('Base dir delete');
+        break;
+      case undefined:
+        console.log('Base dir saved');
+        break;
+      default:
+        console.log('Something went wrong');
+        break;
+    }
   }
 };
 

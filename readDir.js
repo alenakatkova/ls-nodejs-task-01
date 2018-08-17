@@ -2,9 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const copyFile = require('./copyFile');
 const createDir = require('./createDir');
-const countFiles = require('./countFiles');
-
-// Счетчик скопированных файлов
+const currentState = require('./state');
 let itemsCopied = 0;
 
 /**
@@ -18,9 +16,8 @@ const readDir = (base, destination) => {
   let baseDir = path.join(__dirname, base);
   let destDir = path.join(__dirname, destination);
 
-  // Получаем список всех файлов и папок в базовой папке и количество файлов
+  // Получаем список всех файлов и папок в базовой папке
   const files = fs.readdirSync(baseDir);
-  const amountOfFiles = countFiles(baseDir);
 
   // Создаем конечную папку, если она не была создана ранее
   createDir(destDir);
@@ -34,7 +31,6 @@ const readDir = (base, destination) => {
       if (state.isDirectory()) {
         readDir(localBase, destination);
       } else {
-        itemsCopied++;
         // Определяем папку каталога, в которой будет лежать картинка. Создаем эту папку, если ее нет
         let catalogDirName = item.charAt(0).toLowerCase();
         let catalogDir = path.join(destDir, catalogDirName);
@@ -45,10 +41,7 @@ const readDir = (base, destination) => {
         copyFile(localBase, imgNewPath);
 
         console.log(`File "${item}" copied to dir "${catalogDirName}"`);
-      }
-
-      if (itemsCopied === amountOfFiles) {
-        console.log(itemsCopied);
+        currentState.filesCopied = ++itemsCopied;
       }
     }
   });

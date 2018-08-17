@@ -14,7 +14,4 @@ const countFiles = (dir) => {
   return amountOfFiles;
 };
 
-countFiles('./test');
-console.log(amountOfFiles);
-
 module.exports = countFiles;
