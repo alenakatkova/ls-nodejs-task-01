@@ -32,7 +32,7 @@ const readDir = (base, destination) => {
         readDir(localBase, destination);
       } else {
         // Определяем папку каталога, в которой будет лежать картинка. Создаем эту папку, если ее нет
-        let catalogDirName = item.charAt(0).toLowerCase();
+        let catalogDirName = item.charAt(0).toUpperCase();
         let catalogDir = path.join(destDir, catalogDirName);
         createDir(catalogDir);
 
